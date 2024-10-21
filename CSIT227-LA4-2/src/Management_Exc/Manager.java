@@ -17,10 +17,10 @@ public class Manager extends Employee {
         } else {
             double inc = e.getSalary();
             if (e.equals(this)) {
-                this.setSalary(this.getSalary() + inc/2);
+                this.setSalary(this.getSalary() + raise);
             } else {
-                e.setSalary(e.getSalary() + inc);
-                this.setSalary(this.getSalary() + inc/2);
+                e.setSalary(e.getSalary() + raise);
+                this.setSalary(this.getSalary() + raise/2);
             }
         }
     }

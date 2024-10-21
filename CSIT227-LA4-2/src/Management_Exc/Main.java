@@ -2,6 +2,7 @@ package Management_Exc;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class Main {
 
@@ -20,31 +21,34 @@ public class Main {
         Employee b = null;
 
         for (Person s : persons) {
-            if(s.getName() == manager) {
+            if(Objects.equals(s.getName(), manager)) {
                 if(s instanceof Manager) {
                     a = (Manager) s;
                 } else {
-                    throw new ClassCastException();
+                    throw new ClassCastException(s.getName() + " is not a manager");
                 }
             }
         }
 
         for (Person s : persons) {
-            if(s.getName() == employee) {
+            if(Objects.equals(s.getName(), employee)) {
                 if(s instanceof Employee) {
                     b = (Employee) s;
                 } else {
-                    throw  new ClassCastException();
+                    throw  new ClassCastException(s.getName() + " is not an employee");
                 }
             }
         }
 
-        if(a == null || b == null) {
-            throw new NoSuchElementException();
+        if(a == null) {
+            throw new NoSuchElementException(manager + " does not exist");
+        }
+        if(b == null) {
+            throw new NoSuchElementException(employee + " does not exist");
         }
 
         if(salary < 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Raise must be non-negative");
         }
 
         a.giveRaise(b, salary);
@@ -64,33 +68,36 @@ public class Main {
         Manager d = null;
 
         for(Person s : persons) {
-            if(s.getName() == developer) {
+            if(Objects.equals(s.getName(), developer)) {
                 if(s instanceof Developer) {
                     c = (Developer) s;
                 } else {
-                    throw new ClassCastException();
+                    throw new ClassCastException(s.getName() + " is not a developer");
                 }
             }
         }
 
         for (Person s : persons) {
-            if (s.getName() == manager) {
+            if (Objects.equals(s.getName(), manager)) {
                 if (s instanceof Manager) {
                     d = (Manager) s;
                 } else {
-                    throw new ClassCastException();
+                    throw new ClassCastException(s.getName() + " is not a manager");
                 }
             }
         }
 
-        if(c == null || d == null) {
-            throw new NoSuchElementException();
+        if(c == null) {
+            throw new NoSuchElementException(developer + " does not exist");
+        }
+        if(d == null) {
+            throw new NoSuchElementException(manager + " does not exist");
         }
 
-        if(c.getProjectManager() != null) {
+        if(c.getProjectManager() == null) {
             c.setProjectManager(d);
         } else {
-            throw new IllegalStateException();
+            throw new IllegalStateException(c.getName() + " already has a manager: " + c.getProjectManager().getName());
         }
     }
 
@@ -108,14 +115,32 @@ public class Main {
         Employee f = null;
 
         for(Person s : persons) {
-            if(s.getName() == customer) {
+            if(customer.equals(s.getName())) {
                 if(s instanceof Customer) {
                     e = (Customer) s;
                 } else {
-                    throw new
+                    throw new ClassCastException(customer + " is not a customer");
                 }
             }
         }
-        return null;
+
+        for (Person s : persons) {
+            if(employee.equals(s.getName())) {
+                if (s instanceof Employee) {
+                    f = (Employee) s;
+                } else {
+                    throw new ClassCastException(employee + " is not an employee");
+                }
+            }
+        }
+
+        if(e == null) {
+            throw new NoSuchElementException(customer + " does not exist");
+        }
+        if(f == null) {
+            throw new NoSuchElementException(employee + " does not exist");
+        }
+
+        return e.speak(f);
     }
 }

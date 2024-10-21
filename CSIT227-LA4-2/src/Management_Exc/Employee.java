@@ -20,7 +20,7 @@ public class Employee extends Person {
     }
 
     public double getSalary() {
-        return salary;
+        return this.salary;
     }
 
     protected void setSalary(double salary) {
